@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cloud Campus – SLIIT cloud storage for academic materials</title>
+<style>
+:root{--bg1:#0f2142;--bg2:#1b4573;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.16);--tx:#f4f8ff;--mut:#b7c8e2;--gold:#f4c542;--sky:#4a9fd5;--pink:#ff6b9d;--mint:#3de0b4;--vio:#8b6cff;--ink:#0f2142;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg1:#e9f3ff;--bg2:#cfe3ff;--card:rgba(255,255,255,.75);--line:rgba(15,33,66,.16);--tx:#0f2142;--mut:#3b5478;--ink:#0f2142}}
+:root[data-theme="light"]{--bg1:#e9f3ff;--bg2:#cfe3ff;--card:rgba(255,255,255,.75);--line:rgba(15,33,66,.16);--tx:#0f2142;--mut:#3b5478}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Calibri,"Segoe UI",Candara,system-ui,sans-serif;color:var(--tx);background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;overflow-x:hidden;line-height:1.55}
+h1,h2,h3{font-family:Cambria,"Noto Serif",Georgia,serif;line-height:1.15;margin:0 0 .5em}
+a{color:inherit;text-decoration:none}
+.stars i{position:fixed;border-radius:50%;background:#fff;opacity:.5;animation:tw 4s ease-in-out infinite;pointer-events:none}
+@keyframes tw{50%{opacity:.08;transform:scale(.6)}}
+@keyframes drift{from{transform:translateX(-8vw)}to{transform:translateX(8vw)}}
+@keyframes bob{50%{transform:translateY(-18px)}}
+@keyframes rise{0%{transform:translateY(14px);opacity:.3}60%{opacity:1}100%{transform:translateY(-14px);opacity:1}}
+@keyframes hue{to{background-position:200% 0}}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg1) 80%,transparent);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg1)}
+nav{max-width:1100px;margin:auto;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap}
+.logo{font:700 1.3rem Cambria,Georgia,serif;margin-right:auto;display:flex;align-items:center;gap:8px}
+.logo b{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--pink));color:var(--ink);font-size:1.1rem}
+nav a.l{padding:8px 13px;border-radius:99px;color:var(--mut);font-weight:600;transition:.2s}
+nav a.l:hover,nav a.l.on{color:var(--ink);background:linear-gradient(90deg,var(--gold),var(--mint))}
+.btn{display:inline-block;border:0;cursor:pointer;font:700 1rem inherit;font-family:inherit;padding:12px 24px;border-radius:99px;color:var(--ink);background:linear-gradient(90deg,var(--gold),var(--pink),var(--vio),var(--gold));background-size:200% 100%;animation:hue 5s linear infinite;box-shadow:0 8px 24px rgba(255,107,157,.3);transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn.ghost{background:none;animation:none;box-shadow:none;color:var(--tx);border:2px solid var(--sky)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+main{max-width:1100px;margin:auto;padding:30px 18px 60px;position:relative;z-index:1}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;min-height:70vh}
+.hero h1{font-size:clamp(2.6rem,7vw,4.8rem)}
+.grad{background:linear-gradient(90deg,var(--gold),var(--pink),var(--sky),var(--mint),var(--gold));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hue 6s linear infinite}
+.hero p{font-size:1.2rem;color:var(--mut);max-width:34em}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.scene{position:relative;height:380px}
+.cloud{position:absolute;inset:40px 0 0;border-radius:140px 140px 80px 80px;background:linear-gradient(160deg,#4d7aa8,#2f5a88);box-shadow:inset 0 0 60px rgba(255,255,255,.12)}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:55%;height:60%;left:10%;top:-25%}.cloud::after{width:45%;height:50%;right:8%;top:-18%}
+.cap{position:absolute;left:50%;top:6px;width:150px;margin-left:-75px;z-index:2;animation:bob 4s ease-in-out infinite;font-size:5.5rem;text-align:center;filter:drop-shadow(0 10px 12px rgba(0,0,0,.3))}
+.arrow{position:absolute;left:50%;margin-left:-28px;top:120px;width:56px;height:150px;background:linear-gradient(var(--sky),#2b7bb5);clip-path:polygon(50% 0,100% 38%,70% 38%,70% 100%,30% 100%,30% 38%,0 38%);animation:rise 2.4s ease-in-out infinite alternate;z-index:1}
+.bubble{position:absolute;padding:6px 14px;border-radius:99px;font-weight:700;font-size:.85rem;color:var(--ink);animation:bob 5s ease-in-out infinite}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:10px 0 50px}
+.stat{padding:18px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-align:center}
+.stat b{display:block;font:700 2rem Cambria,Georgia,serif}
+.sec{margin:50px 0 20px}.sec h2{font-size:clamp(1.8rem,4vw,2.6rem)}.sec p{color:var(--mut);max-width:46em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c,var(--sky));transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.25)}
+.card .ic{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;font-size:1.6rem;margin-bottom:12px;background:var(--c,var(--sky))}
+.card h3{font-size:1.3rem}.card p{color:var(--mut);margin:0}
+.tabs{display:flex;gap:10px;margin:18px 0;flex-wrap:wrap}
+.tab{cursor:pointer;border:2px solid var(--line);background:var(--card);color:var(--tx);font:700 1rem inherit;font-family:inherit;padding:10px 20px;border-radius:99px}
+.tab.on{border-color:transparent;color:var(--ink);background:linear-gradient(90deg,var(--c1),var(--c2))}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{padding:22px;border-radius:22px;background:var(--card);border:1px solid var(--line);animation:pop .3s}
+.tree,.tree ul{list-style:none;margin:0;padding-left:20px;border-left:2px dashed var(--line)}
+.tree{padding-left:0;border:0}
+.node{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;color:var(--tx);font:inherit;padding:6px 8px;border-radius:10px;cursor:pointer}
+.node:hover{background:rgba(255,255,255,.1)}
+.node small{margin-left:auto;color:var(--mut)}
+.tag{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.8rem;font-weight:700;color:var(--ink)}
+form{display:grid;gap:14px}
+label{display:grid;gap:6px;font-weight:600}
+input,textarea,select{font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--tx)}
+input:focus,textarea:focus,select:focus{border-color:var(--sky)}
+.auth{max-width:460px;margin:30px auto}
+.ok{padding:12px 16px;border-radius:14px;background:linear-gradient(90deg,var(--mint),var(--sky));color:var(--ink);font-weight:700;animation:pop .3s}
+.err{color:var(--pink);font-weight:600;margin:0}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:700 1.4rem Cambria,Georgia,serif;color:var(--ink);margin-bottom:10px;background:linear-gradient(135deg,var(--gold),var(--pink))}
+footer{text-align:center;padding:26px;color:var(--mut);border-top:1px solid var(--line);position:relative;z-index:1}
+@media (max-width:760px){.hero,.split{grid-template-columns:1fr}.scene{height:300px}nav{gap:2px}nav a.l{padding:6px 10px;font-size:.9rem}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+const {useState,useEffect}=React;
+const html=htm.bind(React.createElement);
+const PAGES=[['home','Home'],['about','About us'],['services','Services'],['folders','Folders'],['contact','Contact us'],['login','Log in'],['register','Register']];
+
+const TREE={
+ private:{name:'My private space',tag:'Only you',color:'#ff6b9d',items:[
+  {n:'Year 2 – Semester 1',c:[{n:'SE1042 Notes',c:[{n:'Lecture 01.pdf',s:'1.2 MB'},{n:'Lab sheet 03.docx',s:'240 KB'}]},{n:'Draft assignments',c:[{n:'Report v2.docx',s:'380 KB'}]}]},
+  {n:'Personal',c:[{n:'Transcript.pdf',s:'510 KB'},{n:'CV 2026.pdf',s:'190 KB'}]},
+  {n:'Project backups',c:[{n:'cloud-campus.zip',s:'8.4 MB'}]}]},
+ public:{name:'Shared academic library',tag:'All SLIIT students',color:'#3de0b4',items:[
+  {n:'Faculty of Computing',c:[{n:'Software Engineering',c:[{n:'Past papers 2025.pdf',s:'2.1 MB'},{n:'UML cheat sheet.pdf',s:'600 KB'}]},{n:'Data Structures',c:[{n:'Tutorial answers.pdf',s:'1.4 MB'}]}]},
+  {n:'Business School',c:[{n:'Marketing slides.pptx',s:'5.6 MB'}]},
+  {n:'Study groups',c:[{n:'Group 09 – SE1042',c:[{n:'Business plan.pptx',s:'3.3 MB'}]}]}]}
+};
+
+function Node({it,d=0}){
+  const [open,setOpen]=useState(d<1);
+  const dir=!!it.c;
+  return html`<li>
+    <button className="node" onClick=${()=>dir&&setOpen(!open)} aria-expanded=${dir?open:undefined}>
+      <span>${dir?(open?'📂':'📁'):'📄'}</span><span>${it.n}</span>${it.s&&html`<small>${it.s}</small>`}
+    </button>
+    ${dir&&open&&html`<ul>${it.c.map(x=>html`<${Node} key=${x.n} it=${x} d=${d+1}/>`)}</ul>`}
+  </li>`;
+}
+function Tree({k}){
+  const t=TREE[k];
+  return html`<div className="panel" key=${k}>
+    <h3>${k==='private'?'🔒':'🌍'} ${t.name}</h3>
+    <span className="tag" style=${{background:t.color}}>${t.tag}</span>
+    <ul className="tree" style=${{marginTop:14}}>${t.items.map(x=>html`<${Node} key=${x.n} it=${x}/>`)}</ul>
+  </div>`;
+}
+
+function Stars(){
+  const s=Array.from({length:28},(_,i)=>({x:(i*37)%100,y:(i*53)%100,z:2+(i%4),d:(i%7)*.6}));
+  return html`<div className="stars" aria-hidden="true">${s.map((a,i)=>html`<i key=${i} style=${{left:a.x+'%',top:a.y+'%',width:a.z,height:a.z,animationDelay:a.d+'s'}}/>`)}</div>`;
+}
+
+function Home(){
+  return html`<div>
+    <section className="hero">
+      <div>
+        <h1>Welcome to <span className="grad">Cloud Campus</span></h1>
+        <p>Store your own coursework privately and share study materials with every SLIIT student, all from one place.</p>
+        <div className="row"><a className="btn" href="#register">Create free account</a><a className="btn ghost" href="#folders">See how folders work</a></div>
+      </div>
+      <div className="scene" aria-hidden="true">
+        <div className="cloud"></div><div className="arrow"></div><div className="cap">🎓</div>
+        <span className="bubble" style=${{background:'var(--mint)',left:'2%',top:'30%'}}>🔒 Private</span>
+        <span className="bubble" style=${{background:'var(--gold)',right:'0',top:'48%',animationDelay:'1s'}}>🌍 Public</span>
+        <span className="bubble" style=${{background:'var(--pink)',left:'14%',bottom:'2%',animationDelay:'2s'}}>📚 Notes</span>
+      </div>
+    </section>
+    <div className="stats">
+      ${[['10 GB','free space per student','var(--gold)'],['2','folder types: private and public','var(--mint)'],['24/7','access from any device','var(--pink)'],['1','login with your SLIIT ID','var(--sky)']].map(([a,b,c])=>html`<div className="stat" key=${a} style=${{borderBottom:'4px solid '+c}}><b>${a}</b>${b}</div>`)}
+    </div>
+    <${Features}/>
+  </div>`;
+}
+
+const SERVICES=[
+ ['☁️','Cloud storage','Upload files once and open them from your laptop, phone or the lab.','#4a9fd5'],
+ ['🔒','Private folders','Keep drafts, transcripts and project backups visible only to you.','#ff6b9d'],
+ ['🌍','Public library','Share notes and past papers with all SLIIT students, sorted by faculty and module.','#3de0b4'],
+ ['🔎','Search and filter','Find a file by module code, year or lecturer in seconds.','#f4c542'],
+ ['👥','Study groups','Give your group a shared folder for slides, reports and code.','#8b6cff'],
+ ['🛡️','Safe sharing','Choose who sees each file, and switch it back to private any time.','#ff9a52']];
+function Features(){
+  return html`<section><div className="sec"><h2>What you can do</h2><p>Everything a student needs to keep academic work organised and share it with others.</p></div>
+  <div className="grid">${SERVICES.map(([i,t,p,c])=>html`<article className="card" key=${t} style=${{'--c':c}}><div className="ic">${i}</div><h3>${t}</h3><p>${p}</p></article>`)}</div></section>`;
+}
+function Services(){
+  return html`<div><div className="sec"><h1>Our services</h1><p>Six tools built around how SLIIT students study and share.</p></div><${Features}/>
+  <div className="row"><a className="btn" href="#register">Start storing files</a></div></div>`;
+}
+
+function About(){
+  const team=[['DS','D.I. Sayuranga','IT22889638'],['BB','Bandara BSHKN','IT21185670']];
+  return html`<div>
+    <div className="sec"><h1>About <span className="grad">Cloud Campus</span></h1>
+    <p>Cloud Campus is a university cloud storage and shared academic materials platform for SLIIT students. It started as a business plan for module SE1042 by Group 09.</p></div>
+    <div className="grid">
+      ${[['🎯','Our mission','Make good study material easy to keep, find and share.','#f4c542'],['👀','Our vision','A campus where no student starts a module without the notes others already wrote.','#4a9fd5'],['🤝','Our values','Privacy by default, sharing by choice, and credit for every contributor.','#ff6b9d']].map(([i,t,p,c])=>html`<article className="card" key=${t} style=${{'--c':c}}><div className="ic">${i}</div><h3>${t}</h3><p>${p}</p></article>`)}
+    </div>
+    <div className="sec"><h2>Group 09 – SE1042</h2></div>
+    <div className="team">${team.map(([a,n,id])=>html`<div className="card" key=${id} style=${{'--c':'var(--vio)'}}><div className="av">${a}</div><h3>${n}</h3><p>${id}</p></div>`)}</div>
+  </div>`;
+}
+
+function Folders(){
+  const [k,setK]=useState('private');
+  return html`<div>
+    <div className="sec"><h1>Private and public folders</h1><p>Every student gets a private space and can contribute to the public library. Open a folder to look inside.</p></div>
+    <div className="tabs" role="tablist">
+      <button role="tab" aria-selected=${k==='private'} className=${'tab'+(k==='private'?' on':'')} style=${{'--c1':'#ff6b9d','--c2':'#8b6cff'}} onClick=${()=>setK('private')}>🔒 Private folders</button>
+      <button role="tab" aria-selected=${k==='public'} className=${'tab'+(k==='public'?' on':'')} style=${{'--c1':'#3de0b4','--c2':'#4a9fd5'}} onClick=${()=>setK('public')}>🌍 Public folders</button>
+    </div>
+    <div className="split">
+      <${Tree} k=${k}/>
+      <div className="panel"><h3>${k==='private'?'Who can see it?':'Who can see it?'}</h3>
+        <p>${k==='private'?'Only you. Private files never appear in search or in the public library.':'Every signed-in SLIIT student can view and download. Only the uploader can edit or remove a file.'}</p>
+        <h3>Good for</h3>
+        <p>${k==='private'?'Drafts, personal documents, and backups of your projects.':'Lecture notes, past papers, tutorial answers and group resources.'}</p>
+        <div className="row"><a className="btn" href="#login">Log in to upload</a></div></div>
+    </div>
+  </div>`;
+}
+
+function Contact(){
+  const [f,setF]=useState({name:'',email:'',topic:'Question',msg:''});
+  const [sent,setSent]=useState(false);
+  const on=k=>e=>setF({...f,[k]:e.target.value});
+  return html`<div className="split" style=${{marginTop:20}}>
+    <div><div className="sec" style=${{marginTop:0}}><h1>Contact us</h1><p>Questions about storage, sharing or your account? Send a message and we will reply by email.</p></div>
+      <div className="grid" style=${{gridTemplateColumns:'1fr'}}>
+        ${[['📧','support@cloudcampus.example','#4a9fd5'],['📍','SLIIT, Malabe, Sri Lanka','#ff6b9d'],['🕘','Mon–Fri, 9:00–17:00','#f4c542']].map(([i,t,c])=>html`<div className="card" key=${t} style=${{'--c':c}}>${i} ${t}</div>`)}
+      </div></div>
+    <div className="panel">${sent?html`<div className="ok" role="status">Message sent. Thanks, ${f.name||'friend'}!</div>`:html`
+      <form onSubmit=${e=>{e.preventDefault();setSent(true)}}>
+        <label>Your name<input required value=${f.name} onChange=${on('name')}/></label>
+        <label>Email<input required type="email" value=${f.email} onChange=${on('email')}/></label>
+        <label>Topic<select value=${f.topic} onChange=${on('topic')}><option>Question</option><option>Report a problem</option><option>Feedback</option></select></label>
+        <label>Message<textarea required rows="5" value=${f.msg} onChange=${on('msg')}></textarea></label>
+        <button className="btn" type="submit">Send message</button>
+      </form>`}</div>
+  </div>`;
+}
+
+function Auth({reg}){
+  const [f,setF]=useState({name:'',id:'',email:'',pw:'',pw2:''});
+  const [err,setErr]=useState('');const [done,setDone]=useState(false);
+  const on=k=>e=>setF({...f,[k]:e.target.value});
+  const go=e=>{e.preventDefault();
+    if(f.pw.length<8)return setErr('Password needs at least 8 characters.');
+    if(reg&&f.pw!==f.pw2)return setErr('Passwords do not match.');
+    setErr('');setDone(true);};
+  return html`<div className="panel auth">
+    <h1 style=${{fontSize:'2.2rem'}}>${reg?'Create your account':'Welcome back'}</h1>
+    ${done?html`<div className="ok" role="status">${reg?'Account created. You can now log in.':'Logged in. Opening your folders…'}</div>
+      <div className="row"><a className="btn" href=${reg?'#login':'#folders'}>${reg?'Go to log in':'Open my folders'}</a></div>`:html`
+    <form onSubmit=${go}>
+      ${reg&&html`<label>Full name<input required value=${f.name} onChange=${on('name')}/></label>
+      <label>Student ID<input required placeholder="IT21234567" value=${f.id} onChange=${on('id')}/></label>`}
+      <label>SLIIT email<input required type="email" value=${f.email} onChange=${on('email')}/></label>
+      <label>Password<input required type="password" value=${f.pw} onChange=${on('pw')}/></label>
+      ${reg&&html`<label>Confirm password<input required type="password" value=${f.pw2} onChange=${on('pw2')}/></label>`}
+      ${err&&html`<p className="err" role="alert">${err}</p>`}
+      <button className="btn" type="submit">${reg?'Create account':'Log in'}</button>
+    </form>
+    <p style=${{color:'var(--mut)'}}>${reg?'Already registered? ':'New here? '}<a href=${reg?'#login':'#register'} style=${{color:'var(--gold)',fontWeight:700}}>${reg?'Log in':'Create an account'}</a></p>`}
+  </div>`;
+}
+
+function App(){
+  const get=()=>{const h=location.hash.slice(1);return PAGES.some(p=>p[0]===h)?h:'home'};
+  const [r,setR]=useState(get);
+  useEffect(()=>{const f=()=>{setR(get());window.scrollTo(0,0)};addEventListener('hashchange',f);return()=>removeEventListener('hashchange',f)},[]);
+  const view={home:Home,about:About,services:Services,folders:Folders,contact:Contact,login:()=>Auth({reg:false}),register:()=>Auth({reg:true})}[r];
+  return html`<${React.Fragment}>
+    <${Stars}/>
+    <header><nav aria-label="Main">
+      <a className="logo" href="#home"><b>☁</b> Cloud Campus</a>
+      ${PAGES.map(([k,t])=>html`<a key=${k} className=${'l'+(r===k?' on':'')} href=${'#'+k} aria-current=${r===k?'page':undefined}>${t}</a>`)}
+    </nav></header>
+    <main key=${r}>${html`<${view}/>`}</main>
+    <footer>© 2026 Cloud Campus · Group 09 · SE1042 · SLIIT</footer>
+  <//>`;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
+</script>
+</body>
+</html>
